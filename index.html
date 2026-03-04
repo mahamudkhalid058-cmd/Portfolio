@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K. Mahamud Limon | Full Stack Developer</title>
+
+    <!-- Frameworks & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        armyBlack: '#0D0D0D',
+                        armyGreen: '#2D5A27',
+                        neonGreen: '#39FF14',
+                        tacticalGray: '#1A1A1A',
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Tactical CRT Lines */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 9999;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(45, 90, 37, 0.15) 0%, rgba(13, 13, 13, 1) 80%);
+        }
+
+        /* Responsive Typewriter sizing */
+        .typed-cursor {
+            font-size: 1.5rem;
+            color: #39FF14;
+        }
+
+        @media (max-width: 768px) {
+            .typed-cursor {
+                font-size: 1.1rem;
+            }
+        }
+
+        .military-border {
+            position: relative;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            padding: 10px;
+        }
+
+        .military-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid #39FF14;
+            border-left: 3px solid #39FF14;
+        }
+
+        .military-border::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 20px;
+            height: 20px;
+            border-bottom: 3px solid #39FF14;
+            border-right: 3px solid #39FF14;
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse-green {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(57, 255, 20, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 15px rgba(57, 255, 20, 0);
+            }
+        }
+
+        .pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+
+        /* Scan Line Animation */
+        @keyframes scan {
+            0% {
+                top: -10%;
+            }
+
+            100% {
+                top: 110%;
+            }
+        }
+
+        .scan-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #39FF14, transparent);
+            animation: scan 3s linear infinite;
+            opacity: 0.5;
+        }
+
+        /* Glow effect */
+        .glow-green {
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5), 0 0 20px rgba(57, 255, 20, 0.3);
+        }
+
+        /* Timeline connector */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #2D5A27, transparent);
+        }
+    </style>
+</head>
+
+<body class="bg-armyBlack text-gray-300 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-armyBlack/90 border-b border-armyGreen/30 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-armyGreen flex items-center justify-center text-white font-bold rotate-45">
+                    <span class="-rotate-45">K</span>
+                </div>
+                <span class="font-mono text-xs font-bold tracking-widest hidden sm:inline">LIMON // UNIT-2026</span>
+            </div>
+            <div class="flex gap-4 md:gap-8 font-mono text-[10px] uppercase">
+                <a href="#about" class="hover:text-neonGreen transition hidden sm:inline">About</a>
+                <a href="#missions" class="hover:text-neonGreen transition">Missions</a>
+                <a href="#arsenal" class="hover:text-neonGreen transition">Arsenal</a>
+                <a href="#contact" class="text-neonGreen border border-neonGreen/40 px-3 py-1 hover:bg-neonGreen hover:text-black transition">Comms</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-center pt-20 pb-12">
+        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+
+            <!-- Mobile First: Text Side -->
+            <div class="order-2 lg:order-1 text-center lg:text-left" data-aos="fade-right">
+                <p class="font-mono text-armyGreen text-sm tracking-[0.3em] mb-4 uppercase">Status: Field Deployed</p>
+
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-heading font-black text-white leading-tight mb-4">
+                    KHALID MAHAMUD <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonGreen to-armyGreen glow-green">LIMON</span>
+                </h1>
+
+                <!-- TYPEWRITER EFFECT -->
+                <div class="h-12 md:h-16">
+                    <span class="font-mono text-xl md:text-2xl text-gray-400 uppercase tracking-tighter">
+                        > <span id="typewriter" class="text-neonGreen"></span>
+                    </span>
+                </div>
+
+                <p class="mt-6 text-gray-500 max-w-lg mx-auto lg:mx-0 leading-relaxed border-l-2 border-armyGreen pl-4 italic">
+                    Soldier of the <b>East Bengal Regiment (2026 Batch)</b>.
+                    Merging 4 years of battle-tested code with the iron discipline of the Bangladesh Army.
+                </p>
+
+                <div class="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                    <a href="#contact" class="bg-armyGreen hover:bg-neonGreen hover:text-black text-white px-8 py-4 font-bold uppercase tracking-widest transition-all text-sm">
+                        Initiate Mission
+                    </a>
+                    <div class="flex items-center justify-center gap-4">
+                        <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-neonGreen transition text-white"><i data-lucide="github"></i></a>
+                        <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-neonGreen transition text-white"><i data-lucide="linkedin"></i></a>
+                        <a href="https://wa.me/8801821676054" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-neonGreen transition text-white hover:bg-green-600"><i data-lucide="message-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Side -->
+            <div class="order-1 lg:order-2 flex justify-center" data-aos="zoom-in">
+                <div class="military-border">
+                    <div class="relative w-64 h-80 md:w-80 md:h-[450px] overflow-hidden bg-tacticalGray">
+                        <!-- REPLACE THIS URL WITH YOUR PHOTO -->
+
+      <img src="img.jpg" 
+     alt="Khalid Mahamud Limon" 
+     class="w-full h-full object-cover">
+     
+
+                   <!-- Scan Line Effect -->
+                        <div class="scan-line"></div>
+
+                        <!-- Overlay Elements -->
+                        <div class="absolute inset-0 border-[15px] border-armyBlack/20 pointer-events-none"></div>
+                        <div class="absolute top-2 right-2 text-[8px] font-mono text-neonGreen leading-none text-right">
+                            EBR UNIT: 2026 <br>
+                            LOC: 23.8103 N
+                        </div>
+                        <div class="absolute bottom-4 left-0 w-full bg-armyGreen/80 backdrop-blur-sm py-2 px-4">
+                            <p class="text-[10px] font-mono font-bold text-white uppercase tracking-widest">Combat Ready // Active</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Tactical Stats (Mobile Optimized) -->
+    <section class="bg-tacticalGray/50 border-y border-armyGreen/20 py-8">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div data-aos="fade-up">
+                <h3 class="text-2xl font-black text-white">4+ YRS</h3>
+                <p class="text-[9px] font-mono uppercase text-armyGreen tracking-widest">Engineering</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-2xl font-black text-white">50+</h3>
+                <p class="text-[9px] font-mono uppercase text-armyGreen tracking-widest">Deployments</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-2xl font-black text-white">EBR</h3>
+                <p class="text-[9px] font-mono uppercase text-armyGreen tracking-widest">2026 Batch</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300">
+                <h3 class="text-2xl font-black text-white">100%</h3>
+                <p class="text-[9px] font-mono uppercase text-armyGreen tracking-widest">Reliability</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section (NEW) -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl font-heading font-black text-white uppercase mb-6 border-l-4 border-neonGreen pl-4">Soldier Profile</h2>
+                    <div class="space-y-4 text-gray-400 leading-relaxed">
+                        <p>
+                            <span class="text-neonGreen font-mono">></span> I am <span class="text-white font-semibold">Khalid Mahamud Limon</span>, a Full Stack Developer with over 4 years of combat-proven experience in building robust web applications, mobile solutions, and digital strategies.
+                        </p>
+                        <p>
+                            <span class="text-neonGreen font-mono">></span> Currently serving as a proud recruit of the <span class="text-armyGreen font-semibold">East Bengal Regiment (2026 Batch)</span> in the Bangladesh Army, I combine technical expertise with military discipline and leadership.
+                        </p>
+                        <p>
+                            <span class="text-neonGreen font-mono">></span> My expertise spans PHP, MySQL, JavaScript, Java, and AI integration. I've successfully deployed 50+ projects ranging from enterprise web applications to secure mobile communication systems.
+                        </p>
+                        <p>
+                            <span class="text-neonGreen font-mono">></span> I believe in writing clean, secure, and efficient code that can withstand the toughest conditions - just like a soldier on the battlefield.
+                        </p>
+                    </div>
+                </div>
+                <div data-aos="fade-left" class="grid grid-cols-2 gap-4">
+                    <div class="bg-tacticalGray border border-armyGreen/30 p-6 hover:border-neonGreen transition">
+                        <i data-lucide="user" class="text-neonGreen mb-3" style="width: 24px; height: 24px;"></i>
+                        <h4 class="text-white font-bold mb-1">Full Name</h4>
+                        <p class="text-xs text-gray-500 font-mono">Khalid Mahamud Limon</p>
+                    </div>
+                    <div class="bg-tacticalGray border border-armyGreen/30 p-6 hover:border-neonGreen transition">
+                        <i data-lucide="map-pin" class="text-neonGreen mb-3" style="width: 24px; height: 24px;"></i>
+                        <h4 class="text-white font-bold mb-1">Location</h4>
+                        <p class="text-xs text-gray-500 font-mono">Bangladesh</p>
+                    </div>
+                    <div class="bg-tacticalGray border border-armyGreen/30 p-6 hover:border-neonGreen transition">
+                        <i data-lucide="briefcase" class="text-neonGreen mb-3" style="width: 24px; height: 24px;"></i>
+                        <h4 class="text-white font-bold mb-1">Service</h4>
+                        <p class="text-xs text-gray-500 font-mono">Bangladesh Army</p>
+                    </div>
+                    <div class="bg-tacticalGray border border-armyGreen/30 p-6 hover:border-neonGreen transition">
+                        <i data-lucide="award" class="text-neonGreen mb-3" style="width: 24px; height: 24px;"></i>
+                        <h4 class="text-white font-bold mb-1">Unit</h4>
+                        <p class="text-xs text-gray-500 font-mono">EBR - 2026</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline (NEW) -->
+    <section class="py-20 bg-tacticalGray/30">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-heading font-black text-white uppercase mb-12 border-l-4 border-neonGreen pl-4">Battle History</h2>
+
+            <div class="relative">
+                <!-- Timeline -->
+                <div class="hidden md:block timeline-line"></div>
+
+                <div class="space-y-8">
+                    <!-- Experience Item 1 -->
+                    <div class="flex flex-col md:flex-row gap-6 items-start" data-aos="fade-up">
+                        <div class="md:w-1/2 md:text-right md:pr-8">
+                            <div class="bg-armyBlack border border-armyGreen/30 p-6 inline-block">
+                                <span class="text-xs font-mono text-neonGreen">2023 - Present</span>
+                                <h4 class="text-xl font-bold text-white mt-2">Senior Full Stack Developer</h4>
+                                <p class="text-sm text-gray-500 mt-1">Freelance / Contract</p>
+                                <p class="text-sm text-gray-400 mt-3">Leading complex web application deployments with PHP, MySQL, and modern JavaScript frameworks. Specialized in secure enterprise solutions.</p>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex w-4 h-4 bg-neonGreen rounded-full items-center justify-center z-10 pulse-green mx-auto"></div>
+                        <div class="md:w-1/2 md:pl-8"></div>
+                    </div>
+
+                    <!-- Experience Item 2 -->
+                    <div class="flex flex-col md:flex-row gap-6 items-start" data-aos="fade-up" data-aos-delay="100">
+                        <div class="md:w-1/2 md:pr-8 md:order-1"></div>
+                        <div class="hidden md:flex w-4 h-4 bg-armyGreen rounded-full items-center justify-center z-10 mx-auto md:order-2"></div>
+                        <div class="md:w-1/2 md:pl-8 md:order-3">
+                            <div class="bg-armyBlack border border-armyGreen/30 p-6 inline-block">
+                                <span class="text-xs font-mono text-neonGreen">2022 - 2023</span>
+                                <h4 class="text-xl font-bold text-white mt-2">Web Developer & SEO Specialist</h4>
+                                <p class="text-sm text-gray-500 mt-1">Digital Agency</p>
+                                <p class="text-sm text-gray-400 mt-3">Developed 30+ client websites with focus on SEO optimization and performance. Achieved first-page rankings for competitive keywords.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience Item 3 -->
+                    <div class="flex flex-col md:flex-row gap-6 items-start" data-aos="fade-up" data-aos-delay="200">
+                        <div class="md:w-1/2 md:text-right md:pr-8">
+                            <div class="bg-armyBlack border border-armyGreen/30 p-6 inline-block">
+                                <span class="text-xs font-mono text-neonGreen">2021 - 2022</span>
+                                <h4 class="text-xl font-bold text-white mt-2">Junior Developer</h4>
+                                <p class="text-sm text-gray-500 mt-1">Tech Startup</p>
+                                <p class="text-sm text-gray-400 mt-3">Built foundational skills in PHP, MySQL, and JavaScript. Contributed to multiple MVP projects and learned agile development practices.</p>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex w-4 h-4 bg-armyGreen rounded-full items-center justify-center z-10 mx-auto"></div>
+                        <div class="md:w-1/2 md:pl-8"></div>
+                    </div>
+
+                    <!-- Experience Item 4 -->
+                    <div class="flex flex-col md:flex-row gap-6 items-start" data-aos="fade-up" data-aos-delay="300">
+                        <div class="md:w-1/2 md:pr-8 md:order-1"></div>
+                        <div class="hidden md:flex w-4 h-4 bg-armyGreen rounded-full items-center justify-center z-10 mx-auto md:order-2"></div>
+                        <div class="md:w-1/2 md:pl-8 md:order-3">
+                            <div class="bg-armyBlack border border-armyGreen/30 p-6 inline-block">
+                                <span class="text-xs font-mono text-neonGreen">2026</span>
+                                <h4 class="text-xl font-bold text-white mt-2">East Bengal Regiment</h4>
+                                <p class="text-sm text-gray-500 mt-1">Bangladesh Army</p>
+                                <p class="text-sm text-gray-400 mt-3">Joined the prestigious East Bengal Regiment. Combining military discipline with technical expertise to serve the nation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Missions Grid -->
+    <section id="missions" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-heading font-black text-white uppercase mb-12 border-l-4 border-neonGreen pl-4">Operation Logs</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Mission Card 1 -->
+                <div class="bg-tacticalGray border border-white/5 p-6 hover:border-neonGreen transition group relative overflow-hidden" data-aos="fade-up">
+                    <div class="absolute -right-4 -top-4 text-armyGreen/10 group-hover:text-neonGreen/10 transition">
+                        <i data-lucide="shield" class="w-32 h-32"></i>
+                    </div>
+                    <span class="text-[10px] font-mono text-armyGreen uppercase">Mission 01 // Web App</span>
+                    <h4 class="text-xl font-bold text-white mt-2 mb-4">Enterprise Hub</h4>
+                    <p class="text-sm text-gray-500 mb-6">Full Stack PHP & MySQL solution with military-grade encryption modules. Employee management, payroll, and reporting system.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">PHP</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">MySQL</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">Bootstrap</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xs font-mono text-neonGreen uppercase hover:underline">Live_Recon</a>
+                        <a href="#" class="text-xs font-mono text-gray-500 uppercase hover:text-white">File_Access</a>
+                    </div>
+                </div>
+
+                <!-- Mission Card 2 -->
+                <div class="bg-tacticalGray border border-white/5 p-6 hover:border-neonGreen transition group relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <span class="text-[10px] font-mono text-armyGreen uppercase">Mission 02 // Mobile</span>
+                    <h4 class="text-xl font-bold text-white mt-2 mb-4">Tactical Android</h4>
+                    <p class="text-sm text-gray-500 mb-6">Java-based secure communication app developed for streamlined field data collection and real-time reporting.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">Java</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">Android SDK</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">SQLite</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xs font-mono text-neonGreen uppercase hover:underline">Live_Recon</a>
+                        <a href="#" class="text-xs font-mono text-gray-500 uppercase hover:text-white">File_Access</a>
+                    </div>
+                </div>
+
+                <!-- Mission Card 3 -->
+                <div class="bg-tacticalGray border border-white/5 p-6 hover:border-neonGreen transition group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <span class="text-[10px] font-mono text-armyGreen uppercase">Mission 03 // Intelligence</span>
+                    <h4 class="text-xl font-bold text-white mt-2 mb-4">SEO Recon AI</h4>
+                    <p class="text-sm text-gray-500 mb-6">Integrating AI strategies for digital market dominance and high-ranking SEO. Automated keyword analysis tool.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">Python</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">OpenAI API</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">React</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xs font-mono text-neonGreen uppercase hover:underline">Live_Recon</a>
+                        <a href="#" class="text-xs font-mono text-gray-500 uppercase hover:text-white">File_Access</a>
+                    </div>
+                </div>
+
+                <!-- Mission Card 4 -->
+                <div class="bg-tacticalGray border border-white/5 p-6 hover:border-neonGreen transition group relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <span class="text-[10px] font-mono text-armyGreen uppercase">Mission 04 // E-Commerce</span>
+                    <h4 class="text-xl font-bold text-white mt-2 mb-4">Combat Store</h4>
+                    <p class="text-sm text-gray-500 mb-6">Full-featured e-commerce platform with payment gateway integration, inventory management, and order tracking.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">Laravel</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">Vue.js</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">Stripe</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xs font-mono text-neonGreen uppercase hover:underline">Live_Recon</a>
+                        <a href="#" class="text-xs font-mono text-gray-500 uppercase hover:text-white">File_Access</a>
+                    </div>
+                </div>
+
+                <!-- Mission Card 5 -->
+                <div class="bg-tacticalGray border border-white/5 p-6 hover:border-neonGreen transition group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <span class="text-[10px] font-mono text-armyGreen uppercase">Mission 05 // Education</span>
+                    <h4 class="text-xl font-bold text-white mt-2 mb-4">Academy Portal</h4>
+                    <p class="text-sm text-gray-500 mb-6">Learning management system with course enrollment, progress tracking, and certificate generation for 5000+ students.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">PHP</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">MySQL</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">jQuery</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xs font-mono text-neonGreen uppercase hover:underline">Live_Recon</a>
+                        <a href="#" class="text-xs font-mono text-gray-500 uppercase hover:text-white">File_Access</a>
+                    </div>
+                </div>
+
+                <!-- Mission Card 6 -->
+                <div class="bg-tacticalGray border border-white/5 p-6 hover:border-neonGreen transition group relative overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+                    <span class="text-[10px] font-mono text-armyGreen uppercase">Mission 06 // Healthcare</span>
+                    <h4 class="text-xl font-bold text-white mt-2 mb-4">MediCommand</h4>
+                    <p class="text-sm text-gray-500 mb-6">Hospital management system with appointment scheduling, patient records, and prescription management modules.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">CodeIgniter</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">MySQL</span>
+                        <span class="text-[8px] font-mono bg-armyGreen/20 text-neonGreen px-2 py-1">Ajax</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xs font-mono text-neonGreen uppercase hover:underline">Live_Recon</a>
+                        <a href="#" class="text-xs font-mono text-gray-500 uppercase hover:text-white">File_Access</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Arsenal -->
+    <section id="arsenal" class="py-20 bg-tacticalGray/30">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-heading font-black text-white uppercase mb-6 border-l-4 border-neonGreen pl-4">Weaponized Skills</h2>
+                    <div class="space-y-6">
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-mono font-semibold inline-block py-1 px-2 uppercase rounded-full text-neonGreen bg-armyGreen/20">PHP & Back-End</span>
+                                <span class="text-xs font-mono font-semibold inline-block text-neonGreen">95%</span>
+                            </div>
+                            <div class="overflow-hidden h-1 mb-4 text-xs flex bg-armyGreen/10">
+                                <div style="width:95%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-neonGreen"></div>
+                            </div>
+                        </div>
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-mono font-semibold inline-block py-1 px-2 uppercase rounded-full text-neonGreen bg-armyGreen/20">MySQL Database</span>
+                                <span class="text-xs font-mono font-semibold inline-block text-neonGreen">90%</span>
+                            </div>
+                            <div class="overflow-hidden h-1 mb-4 text-xs flex bg-armyGreen/10">
+                                <div style="width:90%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-neonGreen"></div>
+                            </div>
+                        </div>
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-mono font-semibold inline-block py-1 px-2 uppercase rounded-full text-neonGreen bg-armyGreen/20">JavaScript & UI</span>
+                                <span class="text-xs font-mono font-semibold inline-block text-neonGreen">85%</span>
+                            </div>
+                            <div class="overflow-hidden h-1 mb-4 text-xs flex bg-armyGreen/10">
+                                <div style="width:85%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-neonGreen"></div>
+                            </div>
+                        </div>
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-mono font-semibold inline-block py-1 px-2 uppercase rounded-full text-neonGreen bg-armyGreen/20">Java & Android</span>
+                                <span class="text-xs font-mono font-semibold inline-block text-neonGreen">80%</span>
+                            </div>
+                            <div class="overflow-hidden h-1 mb-4 text-xs flex bg-armyGreen/10">
+                                <div style="width:80%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-neonGreen"></div>
+                            </div>
+                        </div>
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-mono font-semibold inline-block py-1 px-2 uppercase rounded-full text-neonGreen bg-armyGreen/20">SEO & Digital Marketing</span>
+                                <span class="text-xs font-mono font-semibold inline-block text-neonGreen">88%</span>
+                            </div>
+                            <div class="overflow-hidden h-1 mb-4 text-xs flex bg-armyGreen/10">
+                                <div style="width:88%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-neonGreen"></div>
+                            </div>
+                        </div>
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-mono font-semibold inline-block py-1 px-2 uppercase rounded-full text-neonGreen bg-armyGreen/20">AI Integration</span>
+                                <span class="text-xs font-mono font-semibold inline-block text-neonGreen">75%</span>
+                            </div>
+                            <div class="overflow-hidden h-1 mb-4 text-xs flex bg-armyGreen/10">
+                                <div style="width:75%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-neonGreen"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-armyBlack p-6 border border-armyGreen/30 text-center hover:border-neonGreen transition">
+                        <i data-lucide="target" class="mx-auto text-neonGreen mb-2" style="width: 24px; height: 24px;"></i>
+                        <p class="font-mono text-[10px] uppercase">SEO Recon</p>
+                    </div>
+                    <div class="bg-armyBlack p-6 border border-armyGreen/30 text-center hover:border-neonGreen transition">
+                        <i data-lucide="cpu" class="mx-auto text-neonGreen mb-2" style="width: 24px; height: 24px;"></i>
+                        <p class="font-mono text-[10px] uppercase">AI Strategy</p>
+                    </div>
+                    <div class="bg-armyBlack p-6 border border-armyGreen/30 text-center hover:border-neonGreen transition">
+                        <i data-lucide="smartphone" class="mx-auto text-neonGreen mb-2" style="width: 24px; height: 24px;"></i>
+                        <p class="font-mono text-[10px] uppercase">Java Apps</p>
+                    </div>
+                    <div class="bg-armyBlack p-6 border border-armyGreen/30 text-center hover:border-neonGreen transition">
+                        <i data-lucide="medal" class="mx-auto text-neonGreen mb-2" style="width: 24px; height: 24px;"></i>
+                        <p class="font-mono text-[10px] uppercase">EBR Drill</p>
+                    </div>
+                    <div class="bg-armyBlack p-6 border border-armyGreen/30 text-center hover:border-neonGreen transition">
+                        <i data-lucide="database" class="mx-auto text-neonGreen mb-2" style="width: 24px; height: 24px;"></i>
+                        <p class="font-mono text-[10px] uppercase">Database</p>
+                    </div>
+                    <div class="bg-armyBlack p-6 border border-armyGreen/30 text-center hover:border-neonGreen transition">
+                        <i data-lucide="code" class="mx-auto text-neonGreen mb-2" style="width: 24px; height: 24px;"></i>
+                        <p class="font-mono text-[10px] uppercase">API Dev</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section (NEW) -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-heading font-black text-white uppercase mb-12 border-l-4 border-neonGreen pl-4">Service Portfolio</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <div class="bg-tacticalGray border border-armyGreen/30 p-8 hover:border-neonGreen transition group" data-aos="fade-up">
+                    <div class="w-16 h-16 bg-armyGreen/20 flex items-center justify-center mb-6 group-hover:bg-neonGreen/20 transition">
+                        <i data-lucide="globe" class="text-neonGreen" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Web Development</h3>
+                    <p class="text-gray-500 text-sm mb-4">Full-stack web applications built with PHP, Laravel, and modern JavaScript. From simple landing pages to complex enterprise systems.</p>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> Custom Web Applications</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> E-Commerce Solutions</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> CMS Development</li>
+                    </ul>
+                </div>
+
+                <div class="bg-tacticalGray border border-armyGreen/30 p-8 hover:border-neonGreen transition group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-armyGreen/20 flex items-center justify-center mb-6 group-hover:bg-neonGreen/20 transition">
+                        <i data-lucide="smartphone" class="text-neonGreen" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Mobile Development</h3>
+                    <p class="text-gray-500 text-sm mb-4">Native Android applications with Java. Secure, efficient, and user-friendly mobile solutions for various industries.</p>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> Native Android Apps</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> Cross-Platform Solutions</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> App Maintenance</li>
+                    </ul>
+                </div>
+
+                <div class="bg-tacticalGray border border-armyGreen/30 p-8 hover:border-neonGreen transition group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-armyGreen/20 flex items-center justify-center mb-6 group-hover:bg-neonGreen/20 transition">
+                        <i data-lucide="trending-up" class="text-neonGreen" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">SEO & Digital Strategy</h3>
+                    <p class="text-gray-500 text-sm mb-4">Data-driven SEO strategies to boost your online presence. From keyword research to full campaign execution.</p>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> Technical SEO Audit</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> Content Strategy</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-neonGreen" style="width: 12px; height: 12px;"></i> Performance Optimization</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials (NEW) -->
+    <section class="py-20 bg-tacticalGray/30">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-heading font-black text-white uppercase mb-12 border-l-4 border-neonGreen pl-4">Field Reports</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-armyBlack border border-armyGreen/30 p-6" data-aos="fade-up">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm italic mb-4">"Limon delivered our enterprise system ahead of schedule. His attention to security and performance is exceptional. Highly recommended for any complex project."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-armyGreen/30 rounded-full flex items-center justify-center text-white font-bold">A</div>
+                        <div>
+                            <p class="text-white text-sm font-semibold">Ahmed Rahman</p>
+                            <p class="text-xs text-gray-500">CEO, TechVentures BD</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-armyBlack border border-armyGreen/30 p-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm italic mb-4">"The SEO strategy Limon implemented took our website from page 5 to page 1 in just 3 months. His strategic approach is methodical and results-driven."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-armyGreen/30 rounded-full flex items-center justify-center text-white font-bold">S</div>
+                        <div>
+                            <p class="text-white text-sm font-semibold">Sarah Khan</p>
+                            <p class="text-xs text-gray-500">Marketing Director, GrowBD</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-armyBlack border border-armyGreen/30 p-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                        <i data-lucide="star" class="text-neonGreen fill-neonGreen" style="width: 14px; height: 14px;"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm italic mb-4">"Professional, disciplined, and incredibly skilled. Limon's military background shows in his work ethic. Our app was delivered flawlessly."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-armyGreen/30 rounded-full flex items-center justify-center text-white font-bold">M</div>
+                        <div>
+                            <p class="text-white text-sm font-semibold">Mohammad Ali</p>
+                            <p class="text-xs text-gray-500">Founder, Startup Hub</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-heading font-black text-white uppercase">Secure Connection</h2>
+                <p class="font-mono text-xs text-armyGreen mt-2 tracking-[0.3em]">ESTABLISH COMMS // 24/7 READINESS</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Contact Info -->
+                <div class="space-y-6" data-aos="fade-right">
+                    <h3 class="text-xl font-bold text-white mb-4">Communication Channels</h3>
+
+                    <a href="https://wa.me/8801821676054" target="_blank" class="flex items-center gap-4 bg-tacticalGray border border-armyGreen/30 p-4 hover:border-neonGreen transition group">
+                        <div class="w-12 h-12 bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/40 transition">
+                            <i data-lucide="message-circle" class="text-green-500" style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-semibold">WhatsApp</p>
+                            <p class="text-xs text-gray-500 font-mono">+880 1821-676054</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:limon@example.com" class="flex items-center gap-4 bg-tacticalGray border border-armyGreen/30 p-4 hover:border-neonGreen transition group">
+                        <div class="w-12 h-12 bg-armyGreen/20 flex items-center justify-center group-hover:bg-armyGreen/40 transition">
+                            <i data-lucide="mail" class="text-neonGreen" style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-semibold">Email</p>
+                            <p class="text-xs text-gray-500 font-mono">limon@example.com</p>
+                        </div>
+                    </a>
+
+                    <a href="tel:+8801821676054" class="flex items-center gap-4 bg-tacticalGray border border-armyGreen/30 p-4 hover:border-neonGreen transition group">
+                        <div class="w-12 h-12 bg-armyGreen/20 flex items-center justify-center group-hover:bg-armyGreen/40 transition">
+                            <i data-lucide="phone" class="text-neonGreen" style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-semibold">Direct Line</p>
+                            <p class="text-xs text-gray-500 font-mono">+880 1821-676054</p>
+                        </div>
+                    </a>
+
+                    <div class="flex items-center gap-4 bg-tacticalGray border border-armyGreen/30 p-4">
+                        <div class="w-12 h-12 bg-armyGreen/20 flex items-center justify-center">
+                            <i data-lucide="map-pin" class="text-neonGreen" style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-semibold">Location</p>
+                            <p class="text-xs text-gray-500 font-mono">Bangladesh</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Contact Form -->
+                <div data-aos="fade-left">
+                    <div class="bg-tacticalGray border border-armyGreen/30 p-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i data-lucide="send" class="text-neonGreen" style="width: 20px; height: 20px;"></i>
+                            <h3 class="text-lg font-bold text-white">Send Direct Message</h3>
+                        </div>
+
+                        <form id="whatsappForm" class="space-y-4">
+                            <div>
+                                <label class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Identifier (Name) *</label>
+                                <input type="text" id="name" required placeholder="Your Name" class="w-full bg-armyBlack border border-white/10 p-3 focus:border-neonGreen outline-none font-mono text-sm text-white mt-1">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Mission Type</label>
+                                <select id="subject" class="w-full bg-armyBlack border border-white/10 p-3 focus:border-neonGreen outline-none font-mono text-sm text-white mt-1">
+                                    <option value="Project Inquiry">Project Inquiry</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="Mobile App">Mobile App Development</option>
+                                    <option value="SEO Services">SEO Services</option>
+                                    <option value="Consultation">Consultation</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Mission Briefing *</label>
+                                <textarea id="message" rows="4" required placeholder="Describe your project or inquiry..." class="w-full bg-armyBlack border border-white/10 p-3 focus:border-neonGreen outline-none font-mono text-sm text-white resize-none mt-1"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3">
+                                <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+                                Send via WhatsApp
+                            </button>
+
+                            <p class="text-[9px] text-gray-600 text-center font-mono">
+                                * Message will open WhatsApp with your pre-filled details
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section (NEW) -->
+    <section class="py-16 bg-gradient-to-r from-armyGreen/20 to-tacticalGray border-y border-armyGreen/30">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl md:text-3xl font-heading font-black text-white uppercase mb-4">Ready to Deploy Your Project?</h2>
+            <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Let's discuss your mission. Whether it's a full-stack web application, mobile app, or digital strategy - I'm ready for deployment.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://wa.me/8801821676054?text=Hello%20Limon%2C%20I%20have%20a%20project%20inquiry." target="_blank" class="bg-neonGreen hover:bg-green-400 text-black px-8 py-4 font-bold uppercase tracking-widest transition-all text-sm inline-flex items-center justify-center gap-2">
+                    <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+                    Quick WhatsApp
+                </a>
+                <a href="#contact" class="border border-white/20 hover:border-neonGreen text-white px-8 py-4 font-bold uppercase tracking-widest transition-all text-sm">
+                    Full Briefing Form
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-armyGreen flex items-center justify-center text-white font-bold rotate-45">
+                        <span class="-rotate-45">K</span>
+                    </div>
+                    <span class="font-mono text-xs font-bold tracking-widest">LIMON // UNIT-2026</span>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-neonGreen transition text-gray-500 hover:text-white">
+                        <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-neonGreen transition text-gray-500 hover:text-white">
+                        <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i>
+                    </a>
+                    <a href="https://wa.me/8801821676054" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-neonGreen transition text-gray-500 hover:text-white hover:bg-green-600">
+                        <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                    </a>
+                </div>
+
+                <p class="font-mono text-[9px] text-gray-600 uppercase tracking-widest text-center md:text-right">
+                    © 2026 K. MAHAMUD LIMON // EBR <br>
+                    <span class="text-armyGreen">System Integrity: Optimal</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Initialize Lucide
+        lucide.createIcons();
+
+        // Typewriter Effect
+        var typed = new Typed('#typewriter', {
+            strings: [
+                'Full Stack Web Developer',
+                'Bangladesh Army Recruit (EBR)',
+                'SEO & Digital Strategist',
+                'AI Implementation Expert',
+                'Java Application Developer'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            cursorChar: '_',
+        });
+
+        // WhatsApp Form Handler
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value.trim();
+
+            // Validate
+            if (!name || !message) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Format message for WhatsApp
+            const whatsappMessage = `*NEW MISSION BRIEFING*\n\n` +
+                `*From:* ${encodeURIComponent(name)}\n` +
+                `*Mission Type:* ${encodeURIComponent(subject)}\n\n` +
+                `*Details:*\n${encodeURIComponent(message)}`;
+
+            // WhatsApp number (without +)
+            const whatsappNumber = '8801821676054';
+
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+            // Open WhatsApp in new tab
+            window.open(whatsappURL, '_blank');
+
+            // Optional: Reset form after submission
+            // this.reset();
+        });
+    </script>
+</body>
+
+</html>
